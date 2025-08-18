@@ -22,6 +22,7 @@
 #include <vector>
 #include <algorithm>
 #include <iostream>
+#include <cstdint>
 
 #include "CompressedVector.h"
 
