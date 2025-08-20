@@ -61,7 +61,7 @@ RUN cd /habdec/habdec && \
     strip /habdec/habdec/build/install/habdecWebsocketServer
 
 # ---------- Stage 2: Runtime ---------- #
-FROM ubuntu:24.04-minimal
+FROM ubuntu:24.04
 
 # Copy compiled HABDEC
 COPY --from=builder /habdec/habdec/build/install /habdec/habdec/build/install
