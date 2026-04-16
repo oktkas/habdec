@@ -1,0 +1,50 @@
+services:
+  habdec:
+    container_name: habdec
+    image: oktkas/habdec:latest
+    restart: unless-stopped
+    devices:
+      - /dev/bus/usb        # pass through all USB devices (for RTL-SDR)
+    ports:
+      - "5555:5555"
+    environment:
+      - DEVICE=0            # SDR device index; use -1 to list available devices
+      - SAMPLING_RATE=2.024e6
+      - NO_EXIT=1           # keep retrying if device is missing
+      - PORT=0.0.0.0:5555
+
+      # Station info — required for SondeHub upload
+      - STATION=N0CALL      # your amateur callsign
+      - LATLON=50.1 14.4    # station latitude and longitude (decimal degrees)
+      - ALT=250              # station altitude in meters
+
+      # RF settings
+      - FREQ=434.690        # frequency in MHz
+      - PPM=0               # frequency correction
+      - GAIN=35             # SDR gain (leave empty for automatic)
+      - BIAST=0             # bias-T (enable for active antennas)
+      - BIAS_T=0
+
+      # RTTY decoder settings
+      - RTTY=300 7 2        # baud rate, ASCII bits, stop bits
+      - AFC=1               # auto frequency correction
+      - DEC=6               # decimation factor (2^N)
+      - LOWPASS=1500        # lowpass filter bandwidth in Hz
+      - LP_TRANS=0.025      # lowpass transition width (0–1)
+      - USB_PACK=0          # AirSpy USB bit packing
+      - DC_REMOVE=0         # DC spike removal
+
+      # Output / upload
+      - PRINT=1             # print decoded characters to stdout
+      - SENTENCE_CMD=/bin/true
+      - SONDEHUB=https://api.v2.sondehub.org
+
+  habdec-ui:
+    container_name: habdec-ui
+    image: oktkas/habdec-ui:latest
+    restart: unless-stopped
+    ports:
+      - "8443:80"
+    environment:
+      - HABDEC_SERVER_URL=ws://localhost:5555  # WebSocket URL of the habdec container
+      #- HABDEC_SERVER_URL=wss://habdecd.yourdomain.com
