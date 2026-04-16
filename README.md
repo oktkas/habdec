@@ -5,8 +5,26 @@
 
 Runs a websocket server on port 5555. Connect using [habdec-ui](https://github.com/oktkas/habdec-ui) or open the [original web client files](https://github.com/michalfratczak/habdec/tree/master/code/webClient) in your browser.
 
-## Build Instructions
-TODO
+## Build & Publish
+
+Requires Docker with buildx and QEMU support (Docker Desktop includes this by default).
+
+Set up the builder once:
+```bash
+docker buildx create --name multiarch --driver docker-container --use
+docker buildx inspect --bootstrap
+```
+
+Build and push a multi-arch image (amd64, arm64, armv7):
+```bash
+docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7 \
+  -t oktkas/habdec:testing --push .
+```
+
+Promote to latest once verified:
+```bash
+docker buildx imagetools create -t oktkas/habdec:latest oktkas/habdec:testing
+```
 
 ## Environment Variables
 
