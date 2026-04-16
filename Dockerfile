@@ -1,29 +1,6 @@
 # ---------- Stage 1: Builder ---------- #
 FROM ubuntu:24.04 AS builder
 
-ENV DEVICE=""
-ENV SAMPLING_RATE=""
-ENV NO_EXIT=""
-ENV PORT="0.0.0.0:5555"
-ENV STATION=""
-ENV LATLON=""
-ENV ALT=""
-ENV FREQ=""
-ENV PPM=""
-ENV GAIN=""
-ENV PRINT=""
-ENV RTTY=""
-ENV BIAST=""
-ENV BIAS_T=""
-ENV AFC=""
-ENV USB_PACK=""
-ENV DC_REMOVE=""
-ENV DEC=""
-ENV LOWPASS=""
-ENV LP_TRANS=""
-ENV SENTENCE_CMD=""
-ENV SONDEHUB=""
-
 # Install build dependencies
 RUN apt update && apt install -y --no-install-recommends \
     build-essential cmake pkg-config \
@@ -38,7 +15,10 @@ RUN mkdir -p /habdec/habdec
 RUN cd /habdec && \
     wget https://archives.boost.io/release/1.68.0/source/boost_1_68_0.tar.gz && \
     tar -xf ./boost_1_68_0.tar.gz && rm ./boost_1_68_0.tar.gz && \
-    cd boost_1_68_0 && ./bootstrap.sh && ./b2 -j$(nproc) --layout=tagged --build-type=complete stage
+    cd boost_1_68_0 && ./bootstrap.sh && \
+    ./b2 -j$(nproc) --layout=tagged \
+         --with-program_options --with-system --with-date_time \
+         variant=release link=static threading=multi stage
 
 # Compile FFTW 3.3.8
 RUN cd /habdec && \

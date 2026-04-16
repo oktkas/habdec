@@ -18,6 +18,8 @@ docker buildx inspect --bootstrap
 Build and push a multi-arch image (amd64, arm64, armv7):
 ```bash
 docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7 \
+  --cache-from type=registry,ref=oktkas/habdec:buildcache \
+  --cache-to   type=registry,ref=oktkas/habdec:buildcache,mode=max \
   -t oktkas/habdec:testing --push .
 ```
 
