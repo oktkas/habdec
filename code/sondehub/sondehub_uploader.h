@@ -3,6 +3,8 @@
 #include <string>
 #include <vector>
 #include <mutex>
+#include <limits>
+#include <cmath>
 
 namespace sondehub
 {
@@ -19,6 +21,12 @@ struct MinTelemetry
     float alt;
     std::string raw;
     float frequency = 0.0f;  // MHz; 0 means not set
+
+    // extra fields (tokens 6–9); sentinel = not present
+    float batt     = std::numeric_limits<float>::quiet_NaN();  // volts
+    float temp     = std::numeric_limits<float>::quiet_NaN();  // °C
+    float humidity = std::numeric_limits<float>::quiet_NaN();  // %
+    int   sats     = -1;                                       // satellite count
 };
 
 class SondeHubUploader
@@ -55,7 +63,7 @@ public:
         , uploader_antenna_(uploader_antenna)
     {};
     void push(const MinTelemetry&);
-    void upload();
+    void upload(bool extra_fields = false);
     size_t size() const;
 
 };

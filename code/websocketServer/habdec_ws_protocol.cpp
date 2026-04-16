@@ -152,6 +152,14 @@ std::vector<std::shared_ptr<HabdecMessage> > EchoParameter(const std::string i_p
 		result.push_back(p_msg);
 	}
 
+	if(i_param == "extra_fields" || i_param == "")
+	{
+		auto p_msg = std::make_shared<HabdecMessage>();
+		p_msg->to_all_clients_ = true;
+		p_msg->data_stream_<<"cmd::set:extra_fields="<<GLOBALS::get().par_.extra_fields_;
+		result.push_back(p_msg);
+	}
+
 	if(i_param == "decimation" || i_param == "")
 	{
 		int decim_factor_log = std::log2( GLOBALS::get().decoder_.getDecimationFactor() );
@@ -317,6 +325,12 @@ std::vector< std::shared_ptr<HabdecMessage> >  HandleCommand(const std::string i
 		int value = stoi(match[1]);
 		GLOBALS::get().par_.afc_ = value;
 		result = EchoParameter("afc");
+	}
+	else if( regex_match(i_command, match, regex(R"_(set\:extra_fields=([0-9])+)_")) && match.size() > 1 )
+	{
+		int value = stoi(match[1]);
+		GLOBALS::get().par_.extra_fields_ = value;
+		result = EchoParameter("extra_fields");
 	}
 	else if( regex_match(i_command, match, regex(R"_(set\:dc_remove=([0-9])+)_")) && match.size() > 1 )
 	{

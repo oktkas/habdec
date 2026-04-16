@@ -94,6 +94,7 @@ public:
 		float 	rtty_ascii_stops_ = 2;
 		bool 	live_print_ = true;
 		bool 	afc_ = false;
+		bool	extra_fields_ = false;
 		double  ppm_ = 0;
 		bool 	usb_pack_ = false; // airspy usb bitpack
 		bool 	dc_remove_ = false;
@@ -125,6 +126,7 @@ public:
 				&& rtty_ascii_stops_ == rhs.rtty_ascii_stops_
 				&& live_print_ == rhs.live_print_
 				&& afc_ == rhs.afc_
+				&& extra_fields_ == rhs.extra_fields_
 				&& ppm_ == rhs.ppm_
 				&& dc_remove_ == rhs.dc_remove_
 				&& transport_data_type_ == rhs.transport_data_type_
@@ -171,6 +173,7 @@ public:
 			oFile<<"rtty = "<<GLOBALS::get().par_.rtty_ascii_bits_<<endl;
 			oFile<<"rtty = "<<GLOBALS::get().par_.rtty_ascii_stops_<<endl;
 			oFile<<"afc = "<<GLOBALS::get().par_.afc_<<endl;
+			oFile<<"extra_fields = "<<GLOBALS::get().par_.extra_fields_<<endl;
 			oFile<<"usb_pack = "<<GLOBALS::get().par_.usb_pack_<<endl;
 			oFile<<"dc_remove = "<<GLOBALS::get().par_.dc_remove_<<endl;
 			oFile<<"lowpass = "<<GLOBALS::get().par_.lowpass_bw_Hz_<<endl;

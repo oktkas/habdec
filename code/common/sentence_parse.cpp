@@ -194,6 +194,12 @@ std::optional<sondehub::MinTelemetry> parse_sentence(const std::string& sentence
     res.lon = lon;
     res.alt = alt;
 
+    // optional extra fields: token[6]=batt, [7]=temp, [8]=humidity, [9]=sats
+    if (tokens.size() > 6) { try { res.batt     = stof(tokens[6]); } catch(...) {} }
+    if (tokens.size() > 7) { try { res.temp     = stof(tokens[7]); } catch(...) {} }
+    if (tokens.size() > 8) { try { res.humidity = stof(tokens[8]); } catch(...) {} }
+    if (tokens.size() > 9) { try { res.sats     = stoi(tokens[9]); } catch(...) {} }
+
     return res;
 }
 

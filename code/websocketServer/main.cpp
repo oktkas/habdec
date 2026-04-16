@@ -644,7 +644,7 @@ int main(int argc, char** argv)
 			[p_sondehub_uploader]() {
 				while(1) {
 					this_thread::sleep_for(( std::chrono::duration<double, std::milli>(15 * 1000) ));
-					p_sondehub_uploader->upload();
+					p_sondehub_uploader->upload(GLOBALS::get().par_.extra_fields_);
 				}
 			}
 		) );

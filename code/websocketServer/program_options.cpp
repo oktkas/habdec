@@ -58,6 +58,7 @@ void prog_opts(int ac, char* av[])
 			("biast",	po::value<bool>(), "biasT, values: 0, 1")
 			("bias_t",	po::value<bool>(), "biasT, values: 0, 1")
 			("afc",		po::value<bool>(), "Auto Frequency Correction, values: 0, 1")
+			("extra_fields", po::value<bool>(), "Parse and upload extra telemetry fields (batt, temp, humidity, sats), values: 0, 1")
 			("usb_pack",	po::value<bool>(), "AirSpy USB bit packing")
 			("dc_remove",	po::value<bool>(), "DC remove")
 			("dec",			po::value<int>(), "decimation: 2^dec, range: 0-8")
@@ -179,6 +180,10 @@ void prog_opts(int ac, char* av[])
 		if (vm.count("afc"))
 		{
 			GLOBALS::get().par_.afc_ = vm["afc"].as<bool>();
+		}
+		if (vm.count("extra_fields"))
+		{
+			GLOBALS::get().par_.extra_fields_ = vm["extra_fields"].as<bool>();
 		}
 		if (vm.count("usb_pack"))
 		{

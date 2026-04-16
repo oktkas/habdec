@@ -70,6 +70,7 @@ ENV LOWPASS=""
 ENV LP_TRANS=""
 ENV SENTENCE_CMD=""
 ENV SONDEHUB=""
+ENV EXTRA_FIELDS=""
 
 # Runtime dependencies only
 RUN apt update && apt install -y --no-install-recommends \
@@ -103,4 +104,5 @@ CMD ["sh", "-c", "/habdec/habdec/build/install/habdecWebsocketServer \
   --lowpass $LOWPASS \
   --lp_trans $LP_TRANS \
   --sentence_cmd $SENTENCE_CMD \
-  --sondehub $SONDEHUB"]
+  --sondehub $SONDEHUB \
+  --extra_fields $EXTRA_FIELDS"]

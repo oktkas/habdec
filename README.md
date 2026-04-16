@@ -40,6 +40,7 @@ The UI will be available at `http://localhost:8080`. To use an external hostname
 | `PRINT` | Print decoded characters to stdout (`0`/`1`) |
 | `SENTENCE_CMD` | Shell command called with each decoded sentence as argument |
 | `SONDEHUB` | SondeHub API URL (default: `https://api.v2.sondehub.org`) |
+| `EXTRA_FIELDS` | Include extra telemetry fields in SondeHub uploads: battery voltage (`batt`), temperature (`temp`), humidity (`humidity`), satellite count (`sats`) (`0`/`1`). Requires tokens 6–9 to be present in the decoded sentence. Also toggleable at runtime via `cmd::set:extra_fields=1`. |
 
 ## Build & Publish
 

@@ -39,6 +39,7 @@ services:
       - PRINT=1             # print decoded characters to stdout
       - SENTENCE_CMD=/bin/true
       - SONDEHUB=https://api.v2.sondehub.org
+      - EXTRA_FIELDS=0      # include extra telemetry fields in SondeHub upload (batt, temp, humidity, sats)
 
   habdec-ui:
     container_name: habdec-ui

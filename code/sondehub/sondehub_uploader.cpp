@@ -1,6 +1,7 @@
 #include "sondehub_uploader.h"
 
 #include <iostream>
+#include <cmath>
 #include <boost/algorithm/string.hpp>
 #include "common/utc_now_iso.h"
 #include "common/git_repo_sha1.h"
@@ -28,7 +29,7 @@ size_t SondeHubUploader::size() const
 }
 
 
-void SondeHubUploader::upload()
+void SondeHubUploader::upload(bool extra_fields)
 {
     if(api_endpoint_ == "" || uploader_callsign_ == "")
         return;
@@ -66,6 +67,16 @@ void SondeHubUploader::upload()
         tele_json["raw"] = t.raw;
         if (t.frequency > 0.0f)
             tele_json["frequency"] = t.frequency;
+        if (extra_fields) {
+            if (!std::isnan(t.batt))
+                tele_json["batt"] = t.batt;
+            if (!std::isnan(t.temp))
+                tele_json["temp"] = t.temp;
+            if (!std::isnan(t.humidity))
+                tele_json["humidity"] = t.humidity;
+            if (t.sats >= 0)
+                tele_json["sats"] = t.sats;
+        }
         tele_json["modulation"] = "RTTY";
         if (!modulation_detail_.empty())
             tele_json["modulation_detail"] = modulation_detail_;
