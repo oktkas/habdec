@@ -302,6 +302,7 @@ void SentenceCallback(	std::string callsign, std::string data, std::string crc,
 		return;
 	}
 	t.time_received = utc_now_iso();
+	t.raw = callsign + "," + data + "*" + crc;
 
 	// sondehub upload
 	p_sondehub_uploader->push(t);

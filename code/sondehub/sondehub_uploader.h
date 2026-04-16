@@ -17,6 +17,7 @@ struct MinTelemetry
     float lat;
     float lon;
     float alt;
+    std::string raw;
 };
 
 class SondeHubUploader

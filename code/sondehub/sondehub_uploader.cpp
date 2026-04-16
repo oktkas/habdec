@@ -63,6 +63,7 @@ void SondeHubUploader::upload()
         tele_json["lat"] = t.lat;
         tele_json["lon"] = t.lon;
         tele_json["alt"] = static_cast<int>(t.alt);
+        tele_json["raw"] = t.raw;
 
         s<<tele_json<<",";
 
