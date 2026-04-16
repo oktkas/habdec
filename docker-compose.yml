@@ -15,6 +15,7 @@ services:
 
       # Station info — required for SondeHub upload
       - STATION=N0CALL      # your amateur callsign
+      - ANTENNA=            # antenna description shown on SondeHub (e.g. "Yagi 434MHz")
       - LATLON=50.1 14.4    # station latitude and longitude (decimal degrees)
       - ALT=250              # station altitude in meters
 

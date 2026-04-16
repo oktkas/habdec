@@ -23,6 +23,7 @@ The UI will be available at `http://localhost:8080`. To use an external hostname
 | `NO_EXIT` | Set to `1` to keep retrying if the device is missing |
 | `PORT` | WebSocket listen address (default: `0.0.0.0:5555`) |
 | `STATION` | Your amateur callsign. Required to enable SondeHub upload. |
+| `ANTENNA` | Antenna description shown on SondeHub station popup (e.g. `Yagi 434MHz`) |
 | `LATLON` | Station position as decimal degrees (e.g. `50.1 14.4`) |
 | `ALT` | Station altitude in meters |
 | `FREQ` | Receive frequency in MHz |

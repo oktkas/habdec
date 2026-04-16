@@ -52,6 +52,7 @@ ENV SAMPLING_RATE=""
 ENV NO_EXIT=""
 ENV PORT="0.0.0.0:5555"
 ENV STATION=""
+ENV ANTENNA=""
 ENV LATLON=""
 ENV ALT=""
 ENV FREQ=""
@@ -85,6 +86,7 @@ CMD ["sh", "-c", "/habdec/habdec/build/install/habdecWebsocketServer \
   --no_exit $NO_EXIT \
   --port $PORT \
   --station $STATION \
+  --antenna $ANTENNA \
   --latlon $LATLON \
   --alt $ALT \
   --freq $FREQ \

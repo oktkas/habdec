@@ -80,6 +80,7 @@ public:
 		std::string 	command_host_ = "0.0.0.0";
 		int 		 	command_port_ = 5555;
 		std::string 	station_callsign_ = "";
+		std::string 	antenna_ = "";
 		float 	station_lat_ = 0;
 		float 	station_lon_ = 0;
 		float 	station_alt_ = 0;

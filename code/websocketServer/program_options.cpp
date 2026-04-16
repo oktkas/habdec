@@ -46,6 +46,7 @@ void prog_opts(int ac, char* av[])
 			("port",	po::value<string>(),	"Command Port, example: --port 127.0.0.1:5555")
 
 			("station",	po::value<string>(),	"HABHUB station callsign. Omitting this flag disables HABHUB upload.")
+			("antenna",	po::value<string>()->default_value(""), "Antenna description for SondeHub (e.g. \"Yagi 434MHz\")")
 			("latlon",	po::value< std::vector<float> >()->multitoken(), "station GPS location (decimal)")
 			("alt",		po::value<float>(), "station altitude in meters")
 
@@ -138,6 +139,10 @@ void prog_opts(int ac, char* av[])
 		if (vm.count("station"))
 		{
 			GLOBALS::get().par_.station_callsign_ = vm["station"].as<string>();
+		}
+		if (vm.count("antenna"))
+		{
+			GLOBALS::get().par_.antenna_ = vm["antenna"].as<string>();
 		}
 		if (vm.count("sentence_cmd"))
 		{

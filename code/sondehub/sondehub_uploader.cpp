@@ -64,6 +64,13 @@ void SondeHubUploader::upload()
         tele_json["lon"] = t.lon;
         tele_json["alt"] = static_cast<int>(t.alt);
         tele_json["raw"] = t.raw;
+        if (t.frequency > 0.0f)
+            tele_json["frequency"] = t.frequency;
+        tele_json["modulation"] = "RTTY";
+        if (!modulation_detail_.empty())
+            tele_json["modulation_detail"] = modulation_detail_;
+        if (station_lat_ != 0.0f || station_lon_ != 0.0f)
+            tele_json["uploader_position"] = std::vector<float>{station_lat_, station_lon_, station_alt_};
 
         s<<tele_json<<",";
 

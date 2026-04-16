@@ -303,6 +303,7 @@ void SentenceCallback(	std::string callsign, std::string data, std::string crc,
 	}
 	t.time_received = utc_now_iso();
 	t.raw = callsign + "," + data + "*" + crc;
+	t.frequency = static_cast<float>(GLOBALS::get().par_.frequency_ / 1e6);
 
 	// sondehub upload
 	p_sondehub_uploader->push(t);
@@ -516,6 +517,8 @@ int main(int argc, char** argv)
 		sh_json["uploader_position"] = vector<float>{
 			G.par_.station_lat_, G.par_.station_lon_, G.par_.station_alt_};
 		sh_json["uploader_radio"] = device["driver"];
+		if (!G.par_.antenna_.empty())
+			sh_json["uploader_antenna"] = G.par_.antenna_;
 		sh_json["mobile"] = false;
 
 		cout<<"Uploading station info to SondeHub."<<endl;
@@ -568,7 +571,18 @@ int main(int argc, char** argv)
 	auto p_ws_server = make_shared<WebsocketServer>(G.par_.command_host_ , G.par_.command_port_);
 
 	// sondehub uploader
-	auto p_sondehub_uploader = make_shared<sondehub::SondeHubUploader>(G.par_.sondehub_ + "/amateur/telemetry", G.par_.station_callsign_);
+	string mod_detail = to_string((int)G.par_.baud_) + " "
+		+ to_string(G.par_.rtty_ascii_bits_) + "N"
+		+ (G.par_.rtty_ascii_stops_ >= 2.0f ? "2" : "1");
+	auto p_sondehub_uploader = make_shared<sondehub::SondeHubUploader>(
+		G.par_.sondehub_ + "/amateur/telemetry",
+		G.par_.station_callsign_,
+		G.par_.station_lat_,
+		G.par_.station_lon_,
+		G.par_.station_alt_,
+		mod_detail,
+		G.par_.antenna_
+	);
 
 
 	DECODER.sentence_callback_ =
