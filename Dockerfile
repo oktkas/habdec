@@ -45,7 +45,7 @@ RUN cd /habdec && \
     wget http://fftw.org/fftw-3.3.8.tar.gz && \
     tar -xf ./fftw-3.3.8.tar.gz && rm ./fftw-3.3.8.tar.gz && \
     cd fftw-3.3.8 && \
-    ./configure --with-slow-timer --enable-single CFLAGS="-O4 -pipe -march=native -Wall" --prefix=`pwd`/install && \
+    ./configure --with-slow-timer --enable-single CFLAGS="-O4 -pipe -Wall" --prefix=`pwd`/install && \
     make -j$(nproc) && make install
 
 # Compile HABDEC
