@@ -48,23 +48,20 @@ Requires Docker with buildx and QEMU support (Docker Desktop includes this by de
 
 Set up the builder once:
 
-```bash
+```powershell
 docker buildx create --name multiarch --driver docker-container --use
 docker buildx inspect --bootstrap
 ```
 
 Build and push a multi-arch image (amd64, arm64, armv7):
 
-```bash
-docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7 \
-  --cache-from type=registry,ref=oktkas/habdec:buildcache \
-  --cache-to   type=registry,ref=oktkas/habdec:buildcache,mode=max \
-  -t oktkas/habdec:testing --push .
+```powershell
+docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7 --cache-from type=registry,ref=oktkas/habdec:buildcache --cache-to type=registry,ref=oktkas/habdec:buildcache,mode=max -t oktkas/habdec:testing --push .
 ```
 
 Promote to latest once verified:
 
-```bash
+```powershell
 docker buildx imagetools create -t oktkas/habdec:latest oktkas/habdec:testing
 ```
 
