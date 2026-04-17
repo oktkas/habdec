@@ -69,9 +69,9 @@ void SondeHubUploader::upload(bool extra_fields)
             tele_json["frequency"] = t.frequency;
         if (extra_fields) {
             if (!std::isnan(t.batt))
-                tele_json["batt"] = std::round(t.batt * 100.0f) / 100.0f;
+                tele_json["batt"] = std::round((double)t.batt * 100.0) / 100.0;
             if (!std::isnan(t.temp))
-                tele_json["temp"] = std::round(t.temp * 10.0f) / 10.0f;
+                tele_json["temp"] = std::round((double)t.temp * 10.0) / 10.0;
             if (!std::isnan(t.humidity))
                 tele_json["humidity"] = static_cast<int>(std::round(t.humidity));
             if (t.sats >= 0)
